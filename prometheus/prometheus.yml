@@ -23,5 +23,14 @@ scrape_configs:
   static_configs:
   - targets:
     - localhost:9090
+- job_name: prom-python-app
+  honor_timestamps: true
+  scrape_interval: 10s
+  scrape_timeout: 5s
+  metrics_path: /metrics
+  scheme: http
+  static_configs:
+  - targets:
+    - prom_python_app:8001
   
   

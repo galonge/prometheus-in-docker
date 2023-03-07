@@ -1,0 +1,24 @@
+version: '3.7'
+
+services:
+  prom_python_app:
+    image: prom-python-app
+    build:
+      context: prom_python_app/
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+      - "8001:8001"
+    volumes:
+      - ./prom_python_app/:/app/
+  prometheus:
+    image: prometheus-local
+    build:
+      context: prometheus/
+      dockerfile: Dockerfile
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    depends_on:
+      - prom_python_app
